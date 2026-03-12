@@ -6,6 +6,9 @@ import { Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { Ionicons } from '@expo/vector-icons';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -29,8 +32,15 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Accueil',
+          tabBarIcon: ({ color }) => <Ionicons name="home" size={28} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="articles"
+        options={{
+          title: 'Articles',
+          tabBarIcon: ({ color }) => <Ionicons name="book" size={28} color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -47,11 +57,26 @@ export default function TabLayout() {
           ),
         }}
       />
+      
       <Tabs.Screen
-        name="two"
+        name="galerie"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Galerie',
+          tabBarIcon: ({ color }) => <Ionicons name="camera" size={28} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="dates"
+        options={{
+          title: 'Dates',
+          tabBarIcon: ({ color }) => <Ionicons name="calendar" size={28} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="contact"
+        options={{
+          title: 'Contact',
+          tabBarIcon: ({ color }) => <FontAwesome6 name="contact-book" size={24} color="black" />,
         }}
       />
     </Tabs>
