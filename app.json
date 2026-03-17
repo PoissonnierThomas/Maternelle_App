@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "petitPrince",
+    "name": "Le petit prince",
     "slug": "petitPrince",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/petitPrince.png",
     "scheme": "petitprince",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

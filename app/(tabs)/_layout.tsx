@@ -1,92 +1,103 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-import React from "react";
-import { Pressable } from "react-native";
-
-import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import { useColorScheme } from "@/components/useColorScheme";
-import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { Tabs } from "expo-router";
+import React from "react";
+import { Image, Pressable, Text, View } from "react-native";
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+import { useClientOnlyValue } from "@/components/useClientOnlyValue";
+import { useData } from "../_DataContext";
+
+const PRIMARY = "#4A90D9";
+const GOLD = "#F5A623";
+
+function HeaderTitle({ title }: { title: string }) {
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+      <Image
+        source={require("../../assets/images/petitPrince.png")}
+        style={{ width: 34, height: 34, resizeMode: "contain", borderRadius: 17 }}
+      />
+      <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>{title}</Text>
+    </View>
+  );
 }
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+function LogoutButton() {
+  const { signOut } = useData();
+  return (
+    <Pressable onPress={signOut} style={{ marginRight: 15 }}>
+      {({ pressed }) => (
+        <Ionicons
+          name="log-out-outline"
+          size={24}
+          color="#fff"
+          style={{ opacity: pressed ? 0.5 : 1 }}
+        />
+      )}
+    </Pressable>
+  );
+}
 
+
+export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
+        tabBarActiveTintColor: GOLD,
+        tabBarInactiveTintColor: "#a0c4e8",
+        tabBarStyle: {
+          backgroundColor: PRIMARY,
+          borderTopWidth: 0,
+          elevation: 8,
+          shadowOpacity: 0.2,
+          height: 60,
+          paddingBottom: 6,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: "600",
+        },
         headerShown: useClientOnlyValue(false, true),
+        headerStyle: { backgroundColor: PRIMARY },
+        headerTintColor: "#fff",
+        headerTitleStyle: { fontWeight: "bold", fontSize: 18 },
+        headerTitle: ({ children }) => <HeaderTitle title={children} />,
+        headerRight: () => <LogoutButton />,
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="accueil"
         options={{
           title: "Accueil",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home" size={28} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Ionicons name="home" size={26} color={color} />,
         }}
       />
       <Tabs.Screen
         name="articles"
         options={{
           title: "Articles",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="book" size={28} color={color} />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          tabBarIcon: ({ color }) => <Ionicons name="book" size={26} color={color} />,
         }}
       />
-
       <Tabs.Screen
         name="galerie"
         options={{
           title: "Galerie",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="camera" size={28} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Ionicons name="camera" size={26} color={color} />,
         }}
       />
       <Tabs.Screen
         name="dates"
         options={{
           title: "Dates",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="calendar" size={28} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Ionicons name="calendar" size={26} color={color} />,
         }}
       />
       <Tabs.Screen
         name="contact"
         options={{
           title: "Contact",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="contact-book" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <FontAwesome6 name="contact-book" size={22} color={color} />,
         }}
       />
     </Tabs>
